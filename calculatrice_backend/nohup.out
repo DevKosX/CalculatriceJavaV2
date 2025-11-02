@@ -1,0 +1,7 @@
+&&& SAX error: [24:11] null / null / org.xml.sax.SAXParseException; lineNumber: 24; columnNumber: 11; cvc-complex-type.2.3 : L'élément 'web-app' ne doit comporter aucun enfant ([children]) de type caractère, car le type porte le type de contenu "element-only".
+&&& SAX fatal error: [7:6] null / null / org.xml.sax.SAXParseException; lineNumber: 7; columnNumber: 6; Le contenu des éléments doit inclure un balisage ou des caractères au format correct.
+&&& SAX fatal error: [8:5] null / null / org.xml.sax.SAXParseException; lineNumber: 8; columnNumber: 5; Le type d'élément "d" doit être suivi des spécifications d'attribut, ">" ou "/>".
+&&& SAX fatal error: [8:5] null / null / org.xml.sax.SAXParseException; lineNumber: 8; columnNumber: 5; Le type d'élément "de" doit être suivi des spécifications d'attribut, ">" ou "/>".
+&&& SAX fatal error: [8:5] null / null / org.xml.sax.SAXParseException; lineNumber: 8; columnNumber: 5; Le type d'élément "des" doit être suivi des spécifications d'attribut, ">" ou "/>".
+&&& SAX fatal error: [8:5] null / null / org.xml.sax.SAXParseException; lineNumber: 8; columnNumber: 5; Le type d'élément "description" doit être suivi des spécifications d'attribut, ">" ou "/>".
+&&& SAX fatal error: [24:3] null / null / org.xml.sax.SAXParseException; lineNumber: 24; columnNumber: 3; Le type d'élément "description" doit se terminer par la balise de fin correspondante "</description>".
