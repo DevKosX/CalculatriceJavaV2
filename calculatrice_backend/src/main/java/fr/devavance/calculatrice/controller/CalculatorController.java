@@ -2,18 +2,20 @@ package fr.devavance.calculatrice.controller;
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 // je remplace le chemin ici
 import fr.devavance.calculatrice.modele.Calculator;
 
 import fr.devavance.calculatrice.exceptions.OperatorException;
 
 import java.util.ArrayList;
+
 
 
 /**
@@ -43,8 +45,6 @@ public class CalculatorController extends HttpServlet {
         this.permittedOperators.add("sub");
         this.permittedOperators.add("mul");
         this.permittedOperators.add("div");
-
-
     }
 
     //<editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -62,63 +62,65 @@ public class CalculatorController extends HttpServlet {
                          HttpServletResponse response)
             throws ServletException, IOException {
 
+                //Déclaration des variables ici    
+        
+        double op1 = 0, op2 = 0; 
+        double r = 0;
+        String op = null;
+        String messageErreur = null;
+        
+        try{
+        
+            op = request.getParameter("operation");
+            String operande1 = request.getParameter("operande1");
+            String operande2 = request.getParameter("operande2");
 
-        String op = request.getParameter("operation");
-        String operande1 = request.getParameter("operande1");
-        String operande2 = request.getParameter("operande2");
+            if (op == null
+                    || op.isEmpty()
+                    || !this.permittedOperators.contains(op))
 
-        if (op == null
-                || op.isEmpty()
-                || !this.permittedOperators.contains(op))
+                throw new OperatorException();
 
-            throw new OperatorException();
+           //on va traiter et gérer nos erreur
+            try{
+                // je transforme le texte en chiffres ici
+                op1 = Integer.parseInt(operande1);
+                op2 = Integer.parseInt(operande2);
+            } catch(NumberFormatException e){
+                throw new IllegalArgumentException("Les opérandes doivent être des nombres.");
+            }
 
+           // la logique métier est clirement la c ici ou j'appelle le modele
 
-        int op1 = Integer.parseInt(operande1);
-        int op2 = Integer.parseInt(operande2);
-
-
-        double r;
-
-        if (op.equals("add"))
-            r = Calculator.addition(op1, op2);
-        else if (op.equals("sub"))
-            r = Calculator.soustraction(op1, op2);
-        else if (op.equals("div"))
-            r = Calculator.division(op1, op2);
-        else if (op.equals("mul"))
-            r = Calculator.multiplication(op1, op2);
-        else throw new ServletException("Opération invalide !");
-
-
-        response.setContentType("text/html;charset=UTF-8");
-
-        PrintWriter out = response.getWriter();
-        try {
-
-
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Calculator</title>");
-            out.println("</head>");
-            out.println("<body>");
-
-            out.println("<div>");
-            out.println("<p class=\"operande\">Operande 1 : " + op1 + "</p>");
-            out.println("<p class=\"operande\">Operande 2 : " + op2 + "</p>");
-            out.println("<p class=\"operation\">Operateur : " + op + "</p>");
-            out.println("<p class=\"resultat\">resultat : " + r + "</p>");
-            out.println("</div>");
-
-            out.println("</body>");
-            out.println("</html>");
-        } finally {
-            out.close();
-
-
+            if (op.equals("add"))
+                r = Calculator.addition((int)op1, (int)op2);
+            else if (op.equals("sub"))
+                r = Calculator.soustraction((int)op1, (int)op2);
+            else if (op.equals("div"))
+                r = Calculator.division((int)op1, (int)op2);
+            else if (op.equals("mul"))
+                r = Calculator.multiplication((int)op1, (int)op2);
+            else throw new OperatorException("Opération invalide !");
+        
+        } catch (OperatorException | IllegalArgumentException | ArithmeticException e) {
+            // j'attrape les ereurs possible
+            messageErreur = e.getMessage(); // je stocke le message d'erreur
+            if (e instanceof ArithmeticException) {
+                messageErreur = "Erreur : Division par zéro impossible.";
+            }
         }
+            
+        //nous allons modifier nos variables pour que dans la jsp ils pourront etre utilisé
+            
+        request.setAttribute("operande1", op1);
+        request.setAttribute("operande2", op2);
+        request.setAttribute("operation", op);
+        request.setAttribute("resultat", r);
+        request.setAttribute("messageErreur", messageErreur); 
 
+        // on utilise requestdispatcher pour envoyer la jsp au lieu d'utiliser printwriter
+        //je passe la main à la vue
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vue.jsp");
+        dispatcher.forward(request, response);
     }
-}
-     
+} 

@@ -1,4 +1,4 @@
-package fr.devavance.calculatrice;
+package fr.devavance.calculatrice.modele;
 
 /**
  *

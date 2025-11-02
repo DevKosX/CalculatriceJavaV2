@@ -12,4 +12,8 @@ public class OperatorException extends RuntimeException {
     public OperatorException() {
         super();
     }
+   //je vais ajouter une autre qui permettra de stocker des messages
+    public OperatorException(String message) {
+        super(message);
+    }
 }

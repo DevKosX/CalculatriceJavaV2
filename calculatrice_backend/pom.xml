@@ -23,7 +23,13 @@
         <version>3.1.0</version>
         <scope>provided</scope>
     </dependency>
+    
     <!-- Add jsp dependencies -->
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+        <version>1.2</version>
+    </dependency>
     <dependency>
         <groupId>javax.servlet.jsp</groupId>
         <artifactId>javax.servlet.jsp-api</artifactId>
@@ -46,11 +52,11 @@
                     </compilerArguments>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--Modification du pom xml car les plugins maven eteait pas compatible avec ma verisond de hjava-->
+           <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
+                <version>3.3.2</version> <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
