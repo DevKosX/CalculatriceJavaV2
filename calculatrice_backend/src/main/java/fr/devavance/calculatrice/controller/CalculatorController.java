@@ -8,9 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import fr.devavance.calculatrice.Calculator;
-
+// je remplace le chemin ici
+import fr.devavance.calculatrice.modele.Calculator;
 
 import fr.devavance.calculatrice.exceptions.OperatorException;
 
