@@ -90,25 +90,15 @@ public class CalculatorController extends HttpServlet {
             } catch(NumberFormatException e){
                 throw new IllegalArgumentException("Les opérandes doivent être des nombres.");
             }
-
-            if (op.equals("add"))
-                r = modele.addition((int)op1, (int)op2);
-            else if (op.equals("sub"))
-                r = modele.soustraction((int)op1, (int)op2);
-            else if (op.equals("div"))
-                r = modele.division((int)op1, (int)op2);
-            else if (op.equals("mul"))
-                r = modele.multiplication((int)op1, (int)op2);
-            else throw new OperatorException("Opération invalide !");
-        
+           
+            r = executionDuCalcul(modele, op, (int)op1, (int)op2);
         } catch (OperatorException | IllegalArgumentException | ArithmeticException e) {
             // j'attrape les ereurs possible
             messageErreur = e.getMessage(); // je stocke le message d'erreur
             if (e instanceof ArithmeticException) {
                 messageErreur = "Erreur : Division par zéro impossible.";
             }
-        }
-            
+        }    
         //nous allons modifier nos variables pour que dans la jsp ils pourront etre utilisé
             
         request.setAttribute("operande1", op1);
@@ -122,4 +112,22 @@ public class CalculatorController extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/vue.jsp");
         dispatcher.forward(request, response);
     }
+        
+        private Double executionDuCalcul(CalculatorInterface modele, String op, int op1, int op2)
+            throws OperatorException, ServletException {
+        
+            double r;
+            if (op.equals("add"))
+                r = modele.addition((int)op1, (int)op2);
+            else if (op.equals("sub"))
+                r = modele.soustraction((int)op1, (int)op2);
+            else if (op.equals("div"))
+                r = modele.division((int)op1, (int)op2);
+            else if (op.equals("mul"))
+                r = modele.multiplication((int)op1, (int)op2);
+            else throw new OperatorException("Opération invalide !");
+   
+            return r; //retourne mon réuslta à doget
+        }
+
 } 
