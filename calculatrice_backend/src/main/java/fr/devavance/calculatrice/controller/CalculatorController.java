@@ -11,9 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 // je remplace le chemin ici
 import fr.devavance.calculatrice.modele.Calculator;
-
 import fr.devavance.calculatrice.exceptions.OperatorException;
-
+import fr.devavance.calculatrice.modele.CalculatorInterface;
 import java.util.ArrayList;
 
 
@@ -68,6 +67,8 @@ public class CalculatorController extends HttpServlet {
         double r = 0;
         String op = null;
         String messageErreur = null;
+        CalculatorInterface modele;
+        modele = new Calculator();
         
         try{
         
@@ -90,16 +91,14 @@ public class CalculatorController extends HttpServlet {
                 throw new IllegalArgumentException("Les opérandes doivent être des nombres.");
             }
 
-           // la logique métier est clirement la c ici ou j'appelle le modele
-
             if (op.equals("add"))
-                r = Calculator.addition((int)op1, (int)op2);
+                r = modele.addition((int)op1, (int)op2);
             else if (op.equals("sub"))
-                r = Calculator.soustraction((int)op1, (int)op2);
+                r = modele.soustraction((int)op1, (int)op2);
             else if (op.equals("div"))
-                r = Calculator.division((int)op1, (int)op2);
+                r = modele.division((int)op1, (int)op2);
             else if (op.equals("mul"))
-                r = Calculator.multiplication((int)op1, (int)op2);
+                r = modele.multiplication((int)op1, (int)op2);
             else throw new OperatorException("Opération invalide !");
         
         } catch (OperatorException | IllegalArgumentException | ArithmeticException e) {
