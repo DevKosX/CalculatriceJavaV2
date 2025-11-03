@@ -8,7 +8,7 @@ package fr.devavance.calculatrice.constants;
  *
  * @author narz
  */
-public class VueConstants {
+public final class VueConstants {
     // je mets un constructeur privécomme ça, personne ne peut faire "new VueConstants()"
     private VueConstants() {
     }
