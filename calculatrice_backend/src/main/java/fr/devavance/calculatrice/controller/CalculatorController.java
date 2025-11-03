@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 // je remplace le chemin ici
 import fr.devavance.calculatrice.modele.Calculator;
 import fr.devavance.calculatrice.exceptions.OperatorException;
+//j'avais ajouté sa dans l'ajout du contrat
 import fr.devavance.calculatrice.modele.CalculatorInterface;
+//ajout des constantes donc import necessaire ici
+import fr.devavance.calculatrice.constants.VueConstants;
 import java.util.ArrayList;
 
 
@@ -101,11 +104,11 @@ public class CalculatorController extends HttpServlet {
         }    
         //nous allons modifier nos variables pour que dans la jsp ils pourront etre utilisé
             
-        request.setAttribute("operande1", op1);
-        request.setAttribute("operande2", op2);
-        request.setAttribute("operation", op);
-        request.setAttribute("resultat", r);
-        request.setAttribute("messageErreur", messageErreur); 
+        request.setAttribute(VueConstants.VUE_OPERANDE_UN, op1);
+        request.setAttribute(VueConstants.VUE_OPERANDE_DEUX, op2);
+        request.setAttribute(VueConstants.VUE_OPERATION_CHOISIE, op);
+        request.setAttribute(VueConstants.VUE_RESULTAT_CALCUL, r);
+        request.setAttribute(VueConstants.VUE_MESSAGE_ERREUR, messageErreur);
 
         // on utilise requestdispatcher pour envoyer la jsp au lieu d'utiliser printwriter
         //je passe la main à la vue
