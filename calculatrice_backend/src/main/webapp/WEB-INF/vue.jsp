@@ -1,3 +1,9 @@
+<%-- 
+    Document   : vue
+    Created on : 4 nov. 2025, 12:07:30
+    Author     : narz
+
+@page contentType="text/html" pageEncoding="UTF-8"%>
 <%-- c'est mon fichier vue.jsp (ou resultat.jsp) --%>
 
 <%-- la config de base de ma page. --%>

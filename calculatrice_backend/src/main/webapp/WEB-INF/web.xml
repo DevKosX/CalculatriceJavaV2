@@ -26,7 +26,7 @@
 </error-page>
 <error-page>
     <exception-type>fr.devavance.calculatrice.exceptions.NumberOfParameterException</exception-type>
-    <location>/Eerror-handler</location>
+    <location>/Error-handler</location>
 </error-page>
 <error-page>
     <exception-type>fr.devavance.calculatrice.exceptions.OperatorException</exception-type>

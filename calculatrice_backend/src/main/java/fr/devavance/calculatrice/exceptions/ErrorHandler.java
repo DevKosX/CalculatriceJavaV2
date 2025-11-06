@@ -1,5 +1,5 @@
-package fr.devavance.calculatrice;
-
+package fr.devavance.calculatrice.exceptions;
+import fr.devavance.calculatrice.constants.VueConstants;
 import fr.devavance.calculatrice.exceptions.OperatorException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.RequestDispatcher;
 
 // Servlet mappée comme page d'erreur
 @WebServlet("/error-handler")
@@ -26,7 +27,7 @@ public class ErrorHandler extends HttpServlet {
     }
 
     private void processError(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+            throws IOException, ServletException {
 
         // Récupération de l'exception
         Throwable throwable = (Throwable) request.getAttribute("javax.servlet.error.exception");
@@ -49,9 +50,21 @@ public class ErrorHandler extends HttpServlet {
         }
 
         // Réponse HTML avec boîte de dialogue stylisée
+        //response.setContentType("text/html;charset=UTF-8");
+        //PrintWriter out = response.getWriter();
+        //out.println(String.format("<p>Erreur %s</p>", message));
+        
+       //on enelve le pwriter pour le spaghetti code
+        
+        // 1. 
+        request.setAttribute(VueConstants.VUE_MESSAGE_ERREUR, message);
+        
+        // 2. type de reponse
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        out.println(String.format("<p>Erreur %s</p>", message));
+
+        // 3. forward vu en cours
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/erreur.jsp");
+        dispatcher.forward(request, response);
       
     }
 }
